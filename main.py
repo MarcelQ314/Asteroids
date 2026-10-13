@@ -24,7 +24,7 @@ def main():
     AsteroidField.containers = (updatable)
     AsteroidField()
     Shot.containers = (shots, drawable, updatable)
-    
+
     
     
     clock = pygame.time.Clock()
@@ -44,6 +44,14 @@ def main():
                 log_event("player_hit")
                 print("Game over!")
                 sys.exit()
+        for asteroid in asteroids:
+            asteroid: Asteroid
+            for shot in shots:
+                shot: Shot
+                if shot.collides_with(asteroid):
+                    log_event("asteroid_shot")
+                    shot.kill()
+                    asteroid.kill()
         pygame.display.flip()
         dt = clock.tick(60) / 1000
         
